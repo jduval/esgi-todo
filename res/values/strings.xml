@@ -18,7 +18,10 @@
 
     <!-- activity_date.xml -->
     <string name="set_date">Date</string>
-    <string name="set_recall">Recall</string>
+    <string name="set_hour">Hour</string>
+    <string name="set_recall_date">Recall Date</string>
+    <string name="set_recall_hour">Recall Hour</string>
     <string name="title_activity_initial_date_picker">InitialDatePickerActivity</string>
+    <string name="validate_date">Validate</string>
 
 </resources>

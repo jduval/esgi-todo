@@ -13,33 +13,82 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/set_date"
-        android:onClick="initial_date_picker" />
+        android:text="@string/set_date" />
 
-<!--     <DatePicker -->
-<!--         android:id="@+id/datePicker1" -->
-<!--         android:layout_width="match_parent" -->
-<!--         android:layout_height="wrap_content" /> -->
+    <EditText
+        android:id="@+id/editTextInitialDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:onClick="openDatePickerDialog" >
 
-<!--     <TimePicker -->
-<!--         android:id="@+id/timePicker1" -->
-<!--         android:layout_width="wrap_content" -->
-<!--         android:layout_height="wrap_content" /> -->
+        <requestFocus />
+    </EditText>
+    
+        <TextView
+        android:id="@+id/initialHour"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_hour" />
 
-<!--     <TextView -->
-<!--         android:id="@+id/textView2" -->
-<!--         android:layout_width="match_parent" -->
-<!--         android:layout_height="wrap_content" -->
-<!--         android:text="@string/set_date" /> -->
+    <EditText
+        android:id="@+id/editTextInitialHour"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:onClick="openDatePickerDialogHour" >
 
-<!--     <DatePicker -->
-<!--         android:id="@+id/datePicker2" -->
-<!--         android:layout_width="match_parent" -->
-<!--         android:layout_height="wrap_content" /> -->
+        <requestFocus />
+    </EditText>
+    
+    <View 
+   android:layout_width="fill_parent"
+   android:layout_height="1dp"
+   android:layout_marginTop="20dp"
+   android:layout_marginBottom="20dp"  
+   android:background="#000"/>
 
-<!--     <TimePicker -->
-<!--         android:id="@+id/timePicker2" -->
-<!--         android:layout_width="wrap_content" -->
-<!--         android:layout_height="wrap_content" /> -->
+    <TextView
+        android:id="@+id/recallDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_recall_date" />
 
+    <EditText
+        android:id="@+id/editTextRecallDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:onClick="openDatePickerDialogRecall" >
+
+        <requestFocus />
+    </EditText>
+    
+        <TextView
+        android:id="@+id/recallHour"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_recall_hour" />
+
+    <EditText
+        android:id="@+id/editTextRecallHour"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:onClick="openDatePickerDialogRecallHour" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/validate_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="validateDate"
+        android:text="@string/validate_date" />
+    
 </LinearLayout>
