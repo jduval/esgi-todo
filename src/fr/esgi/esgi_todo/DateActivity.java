@@ -1,6 +1,7 @@
 package fr.esgi.esgi_todo;
 
 import java.util.Date;
+import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import android.os.Bundle;
@@ -9,6 +10,9 @@ import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.DatePicker;
@@ -16,7 +20,9 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 public class DateActivity extends Activity {
-
+	private static final String TAG = "test";
+	private SqliteController SqliteClass;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -77,7 +83,7 @@ public class DateActivity extends Activity {
 	public void openDatePickerDialogHour(View v)
 	{ 
 	    Calendar c = Calendar.getInstance();
-	    int mHour = c.get(Calendar.HOUR);
+	    int mHour = c.get(Calendar.HOUR_OF_DAY);
 	    int mMinute = c.get(Calendar.MINUTE);
 	    
 	    //timepicker callback
@@ -158,8 +164,27 @@ public class DateActivity extends Activity {
 	    tp.show();
 	}
 	
-	public void validateDate() {
-		//kikoo validatééééé
+	public void validateDate(View v) {
+		EditText initialDate = (EditText) findViewById( R.id.editTextInitialDate );
+//		EditText initialHour = (EditText) findViewById( R.id.editTextInitialHour );
+//		EditText recallDate = (EditText) findViewById( R.id.editTextRecallDate );
+//		EditText recallHour = (EditText) findViewById( R.id.editTextRecallHour );
+
+//		if (initialDate.getText() != null) {
+//
+//		}
+
+		SqliteController db = new SqliteController(this);
+		db.addTask(new Task(initialDate.getText().toString()));
+
+		List<Task> tasks = db.getAllTasks();
+		for (Task tsk : tasks) {
+			String log = "Id: " + tsk.getId() + ", initial date: " + tsk.getInitialDate();
+			Log.d(TAG, log);
+		}
+
+		Intent intent = new Intent(this, NewTaskActivity.class);
+		startActivity(intent);
 	}
 	
 }
