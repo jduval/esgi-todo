@@ -12,7 +12,7 @@
     <string name="new_task_category">Category</string>
     <string name="new_task_title">Title / Resume</string>
     <string name="new_task_content">Content</string>
-    <string name="new_task_validate">Validetch</string>
+    <string name="new_task_validate">Validate</string>
     <string name="title_activity_date">DateActivity</string>
     <string name="hello_world">Hello world!</string>
 
