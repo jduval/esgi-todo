@@ -3,7 +3,7 @@ package fr.esgi.esgi_todo;
 import android.widget.EditText;
 
 public class Task {
-	
+
 	int id;
 	String initial_date;
 	String initial_hour;
@@ -19,6 +19,7 @@ public class Task {
 		this.id = id;
 		this.initial_date = initial_date;
 	}
+
 	public Task(int id, String initial_date, String initial_hour, String recall_date, String recall_hour) {
 		this.id = id;
 		this.initial_date = initial_date;
@@ -28,17 +29,16 @@ public class Task {
 		this.initial_date = initial_date;
 	}
 
-
-
-	public Task(String initial_date, String initial_hour, String priority, String category, String titleTask, String contentTask) {
+	public Task(String initial_date, String initial_hour, String recall_date, String recall_hour, String priority, String category, String titleTask, String contentTask) {
 		this.initial_date = initial_date;
 		this.initial_hour = initial_hour;
+		this.recall_date = recall_date;
+		this.recall_hour = recall_hour;
 		this.priority = priority;
 		this.category = category;
 		this.titleTask = titleTask;
 		this.contentTask = contentTask;
 	}
-
 
 	public int getId() {
 		return this.id;
@@ -48,11 +48,6 @@ public class Task {
 		this.id = id;
 	}
 
-	/*
-	 * 
-	 * Date / Recall values
-	 * 
-	 */
 	public String getInitialDate() {
 		return this.initial_date;
 	}

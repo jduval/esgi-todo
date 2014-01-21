@@ -70,8 +70,8 @@ public class SqliteController extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_INI_D, task.getInitialDate());
         values.put(KEY_INI_H, task.getInitialHour());
-//        values.put(KEY_REC_D, task.getRecallDate());
-//        values.put(KEY_REC_H, task.getRecallHour());
+        values.put(KEY_REC_D, task.getRecallDate());
+        values.put(KEY_REC_H, task.getRecallHour());
         values.put(KEY_PRIO, task.getPriority());
         values.put(KEY_CAT, task.getCategory());
         values.put(KEY_TITLE, task.getTitle());
@@ -110,15 +110,14 @@ public class SqliteController extends SQLiteOpenHelper {
                 Task task = new Task();
                 task.setId(Integer.parseInt(cursor.getString(0)));
                 task.setInitialDate(cursor.getString(1));
-                task.setInitialHour(cursor.getString(1));
-                task.setRecallDate(cursor.getString(1));
-                task.setRecallHour(cursor.getString(1));
-                task.setPriority(cursor.getString(1));
-                task.setCategory(cursor.getString(1));
-                task.setTitle(cursor.getString(1));
-                task.setContent(cursor.getString(1));
-                
-            //    contact.setPhoneNumber(cursor.getString(2));
+                task.setInitialHour(cursor.getString(2));
+                task.setRecallDate(cursor.getString(3));
+                task.setRecallHour(cursor.getString(4));
+                task.setPriority(cursor.getString(5));
+                task.setCategory(cursor.getString(6));
+                task.setTitle(cursor.getString(7));
+                task.setContent(cursor.getString(8));
+
                 // Adding task to list
                 TaskList.add(task);
             } while (cursor.moveToNext());

@@ -84,7 +84,7 @@ public class NewTaskActivity extends Activity {
 				}
 			} // endif category
 		}
-		
+
 //		Log.d(TAG, "supprimetch les prefs");
 //		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 //		Editor editor = prefs.edit();
@@ -132,6 +132,8 @@ public class NewTaskActivity extends Activity {
 		db.addTask(new Task(
 					map.get("initial_date").toString(),
 					map.get("initial_hour").toString(),
+					map.get("recall_date").toString(),
+					map.get("recall_hour").toString(),
 					map.get("priority").toString(),
 					map.get("category").toString(),
 					titleTask.getText().toString(),
