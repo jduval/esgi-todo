@@ -2,9 +2,12 @@ package fr.esgi.esgi_todo;
 
 import java.util.Date;
 import java.util.List;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -12,6 +15,8 @@ import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -22,6 +27,7 @@ import android.widget.TimePicker;
 public class DateActivity extends Activity {
 	private static final String TAG = "test";
 	private SqliteController SqliteClass;
+	//private SharedPreferences mySharedPreferences;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +136,7 @@ public class DateActivity extends Activity {
 
 	            editText.setText(dayOfMonth + "/" + finalMonth + "/" + year);
 	        }
-        
+
 		};
 		
 		//display datepicker
@@ -166,24 +172,46 @@ public class DateActivity extends Activity {
 	
 	public void validateDate(View v) {
 		EditText initialDate = (EditText) findViewById( R.id.editTextInitialDate );
-//		EditText initialHour = (EditText) findViewById( R.id.editTextInitialHour );
-//		EditText recallDate = (EditText) findViewById( R.id.editTextRecallDate );
-//		EditText recallHour = (EditText) findViewById( R.id.editTextRecallHour );
+		EditText initialHour = (EditText) findViewById( R.id.editTextInitialHour );
+		EditText recallDate = (EditText) findViewById( R.id.editTextRecallDate );
+		EditText recallHour = (EditText) findViewById( R.id.editTextRecallHour );
 
 //		if (initialDate.getText() != null) {
 //
 //		}
 
-		SqliteController db = new SqliteController(this);
-		db.addTask(new Task(initialDate.getText().toString()));
+//		SqliteController db = new SqliteController(this);
+//		db.addTask(new Task(initialDate.getText().toString(), initialHour.getText().toString()));
+//
+//		List<Task> tasks = db.getAllTasks();
+//		for (Task tsk : tasks) {
+//			String log = "Id: " + tsk.getId() + ", initial date: " + tsk.getInitialDate() + ", initial hour: " + tsk.getInitialHour();
+//			Log.d(TAG, log);
+//		}
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		Editor editor = prefs.edit();
 
-		List<Task> tasks = db.getAllTasks();
-		for (Task tsk : tasks) {
-			String log = "Id: " + tsk.getId() + ", initial date: " + tsk.getInitialDate();
-			Log.d(TAG, log);
+		String initialDateKey = "initial_date";
+		String initialHourKey = "initial_hour";
+		String recallDateKey = "recall_date";
+		String recallHourKey = "recall_hour";
+		
+		editor.putString(initialDateKey, initialDate.getText().toString());
+		editor.putString(initialHourKey, initialHour.getText().toString());
+
+		if (recallDate.getText().toString() != "") {
+			editor.putString(recallDateKey, recallDate.getText().toString());
+
+			if (recallHour.getText().toString() != "") {
+				editor.putString(recallHourKey, recallHour.getText().toString());
+			}
 		}
 
+		editor.commit();
+
 		Intent intent = new Intent(this, NewTaskActivity.class);
+		intent.putExtra("EXTRA_DATE", "set!");
 		startActivity(intent);
 	}
 	
