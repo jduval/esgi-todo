@@ -31,16 +31,16 @@
             android:label="@string/title_activity_date" >
         </activity>
         <activity
-            android:name="fr.esgi.esgi_todo.InitialDatePickerActivity"
-            android:label="@string/title_activity_initial_date_picker" >
-        </activity>
-        <activity
             android:name="fr.esgi.esgi_todo.CategoryActivity"
             android:label="@string/title_activity_category" >
         </activity>
         <activity
             android:name="fr.esgi.esgi_todo.PriorityActivity"
             android:label="@string/title_activity_priority" >
+        </activity>
+        <activity
+            android:name="fr.esgi.esgi_todo.CurrentTaskActivity"
+            android:label="@string/title_activity_current_task" >
         </activity>
     </application>
 
