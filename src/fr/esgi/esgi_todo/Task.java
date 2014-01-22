@@ -4,7 +4,7 @@ import android.widget.EditText;
 
 public class Task {
 
-	int id;
+	long _id;
 	String initial_date;
 	String initial_hour;
 	String recall_date;
@@ -15,13 +15,13 @@ public class Task {
 	String contentTask;
 
 	public Task() {}
-	public Task(int id, String initial_date, String initial_hour) {
-		this.id = id;
+	public Task(long id, String initial_date, String initial_hour) {
+		this._id = id;
 		this.initial_date = initial_date;
 	}
 
-	public Task(int id, String initial_date, String initial_hour, String recall_date, String recall_hour) {
-		this.id = id;
+	public Task(long id, String initial_date, String initial_hour, String recall_date, String recall_hour) {
+		this._id = id;
 		this.initial_date = initial_date;
 	}
 
@@ -40,12 +40,12 @@ public class Task {
 		this.contentTask = contentTask;
 	}
 
-	public int getId() {
-		return this.id;
+	public long getId() {
+		return this._id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(long id) {
+		this._id = id;
 	}
 
 	public String getInitialDate() {
