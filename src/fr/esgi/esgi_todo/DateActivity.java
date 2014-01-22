@@ -1,23 +1,19 @@
 package fr.esgi.esgi_todo;
 
-import java.util.Date;
-import java.util.List;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
+import java.util.Date;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.util.Log;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
 import android.widget.DatePicker;
@@ -25,9 +21,6 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 public class DateActivity extends Activity {
-	private static final String TAG = "test";
-	private SqliteController SqliteClass;
-	//private SharedPreferences mySharedPreferences;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -180,14 +173,6 @@ public class DateActivity extends Activity {
 //
 //		}
 
-//		SqliteController db = new SqliteController(this);
-//		db.addTask(new Task(initialDate.getText().toString(), initialHour.getText().toString()));
-//
-//		List<Task> tasks = db.getAllTasks();
-//		for (Task tsk : tasks) {
-//			String log = "Id: " + tsk.getId() + ", initial date: " + tsk.getInitialDate() + ", initial hour: " + tsk.getInitialHour();
-//			Log.d(TAG, log);
-//		}
 		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		Editor editor = prefs.edit();

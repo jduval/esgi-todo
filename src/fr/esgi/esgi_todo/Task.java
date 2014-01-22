@@ -1,6 +1,5 @@
 package fr.esgi.esgi_todo;
 
-import android.widget.EditText;
 
 public class Task {
 

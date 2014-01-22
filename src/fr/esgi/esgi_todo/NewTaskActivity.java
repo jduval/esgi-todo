@@ -18,7 +18,6 @@ import android.widget.EditText;
 public class NewTaskActivity extends Activity {
 
 	private static final String TAG = "shared";
-	private SqliteController SqliteClass;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -130,13 +129,13 @@ public class NewTaskActivity extends Activity {
 					contentTask.getText().toString()
 				));
 
-		List<Task> tasks = db.getAllTasks();
-		for (Task tsk : tasks) {
-			String log = "Id: " + tsk.getId() + ", initial date: " + tsk.getInitialDate() + ", initial hour: " + tsk.getInitialHour() 
-					+ ", recall_date: " + tsk.getRecallDate() + ", recall_hour: " + tsk.getRecallHour() + ", priority: " + tsk.getPriority() 
-					+ ", category: " + tsk.getCategory() + ", title: " + tsk.getTitle() + ", content: " + tsk.getContent();
-			Log.d(TAG, log);
-		}
+//		List<Task> tasks = db.getAllTasks();
+//		for (Task tsk : tasks) {
+//			String log = "Id: " + tsk.getId() + ", initial date: " + tsk.getInitialDate() + ", initial hour: " + tsk.getInitialHour() 
+//					+ ", recall_date: " + tsk.getRecallDate() + ", recall_hour: " + tsk.getRecallHour() + ", priority: " + tsk.getPriority() 
+//					+ ", category: " + tsk.getCategory() + ", title: " + tsk.getTitle() + ", content: " + tsk.getContent();
+//			Log.d(TAG, log);
+//		}
 		
 		//delete sharedpreferences
 		prefs.edit().clear().commit();

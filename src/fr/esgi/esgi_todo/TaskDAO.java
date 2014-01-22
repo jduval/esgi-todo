@@ -1,7 +1,6 @@
 package fr.esgi.esgi_todo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -43,23 +42,37 @@ public class TaskDAO extends DAOBase {
        values.put(KEY_TITLE, task.getTitle());
        values.put(KEY_CONTENT, task.getContent());
 
-       Log.d("INSERTVALUES", values.toString());
        db.insert(TABLE_TASK, null, values);
        db.close();
    }
 
    // Getting single task
-	public Task getTask(int id) {
+	public Task getTask(long id) {
 		SQLiteDatabase db = this.open();
 
-		Cursor cursor = db.query(TABLE_TASK,
-				new String[] { KEY_ID, KEY_INI_D }, KEY_ID + "=?",
-				new String[] { String.valueOf(id) }, null, null, null, null);
+		String selectQuery = "SELECT * FROM " + TABLE_TASK + " WHERE _id = " + id;
+		Cursor cursor = db.rawQuery(selectQuery, null);
+		
+//		Cursor cursor = db.query(TABLE_TASK,
+//				new String[] { KEY_ID, KEY_INI_D, KEY_TITLE }, KEY_ID + "=?",
+//				new String[] { String.valueOf(id) }, null, null, null, null);
 		if (cursor != null)
 			cursor.moveToFirst();
+		
+		Task task = new Task(cursor.getString(cursor
+				.getColumnIndex("initial_date")), cursor.getString(cursor
+				.getColumnIndex("initial_hour")), cursor.getString(cursor
+				.getColumnIndex("recall_date")), cursor.getString(cursor
+				.getColumnIndex("recall_hour")), cursor.getString(cursor
+				.getColumnIndex("priority")), cursor.getString(cursor
+				.getColumnIndex("category")), cursor.getString(cursor
+				.getColumnIndex("title")), cursor.getString(cursor
+				.getColumnIndex("content")));
 
-		Task task = new Task(cursor.getLong(0),
-				cursor.getString(1), cursor.getString(1));
+//		Log.d("CURSORTEST", cursor.toString());
+//
+//		Task task = new Task(cursor.getLong(0),
+//				cursor.getString(1), cursor.getString(2));
 		return task;
 	}
    
