@@ -1,17 +1,14 @@
 package fr.esgi.esgi_todo;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -64,7 +61,6 @@ public class NewTaskActivity extends Activity {
 
 		Map<String,?> keys = prefs.getAll();
 		for(Map.Entry<String, ?> entry : keys.entrySet()) {
-			//Log.d(TAG, entry.getKey() + " : " +  entry.getValue().toString());
 			if (entry.getKey().equals("initial_date")) {
 				if (entry.getKey() != "") {
 					Button ini_d_button = (Button)findViewById(R.id.button2);
@@ -84,12 +80,6 @@ public class NewTaskActivity extends Activity {
 				}
 			} // endif category
 		}
-
-//		Log.d(TAG, "supprimetch les prefs");
-//		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//		Editor editor = prefs.edit();
-//		editor.clear();
-//		editor.commit();
 	}
 
 	@Override
@@ -119,7 +109,7 @@ public class NewTaskActivity extends Activity {
 		EditText contentTask = (EditText) findViewById( R.id.editTextContentTask );
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		SqliteController db = new SqliteController(this);
+		TaskDAO db = new TaskDAO(this);
 
 		Map<String,?> keys = prefs.getAll();
 		Map<String, String> map = new HashMap<String, String>();
@@ -130,10 +120,10 @@ public class NewTaskActivity extends Activity {
 
 		// no recall date/hour set
 		db.addTask(new Task(
-					map.get("initial_date").toString(),
-					map.get("initial_hour").toString(),
-					map.get("recall_date").toString(),
-					map.get("recall_hour").toString(),
+					map.get("initial_date"),
+					map.get("initial_hour"),
+					map.get("recall_date"),
+					map.get("recall_hour"),
 					map.get("priority").toString(),
 					map.get("category").toString(),
 					titleTask.getText().toString(),
@@ -142,9 +132,18 @@ public class NewTaskActivity extends Activity {
 
 		List<Task> tasks = db.getAllTasks();
 		for (Task tsk : tasks) {
-			String log = "Id: " + tsk.getId() + ", initial date: " + tsk.getInitialDate() + ", initial hour: " + tsk.getInitialHour();
+			String log = "Id: " + tsk.getId() + ", initial date: " + tsk.getInitialDate() + ", initial hour: " + tsk.getInitialHour() 
+					+ ", recall_date: " + tsk.getRecallDate() + ", recall_hour: " + tsk.getRecallHour() + ", priority: " + tsk.getPriority() 
+					+ ", category: " + tsk.getCategory() + ", title: " + tsk.getTitle() + ", content: " + tsk.getContent();
 			Log.d(TAG, log);
 		}
+		
+		//delete sharedpreferences
+		prefs.edit().clear().commit();
+		//back to main activity
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+		
 	}
 
 }
