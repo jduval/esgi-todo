@@ -45,6 +45,28 @@ public class TaskDAO extends DAOBase {
        db.insert(TABLE_TASK, null, values);
        db.close();
    }
+   
+   // Adding new task
+   void updateTask(Task task, String title) {
+	   Log.d("DAFUQ_DAO", task.getPriority());
+	 //  Log.d("DAFUQ_DAO", title.toString());
+       SQLiteDatabase db = this.open();
+
+       ContentValues values = new ContentValues();
+       values.put(KEY_INI_D, task.getInitialDate());
+       values.put(KEY_INI_H, task.getInitialHour());
+       values.put(KEY_REC_D, task.getRecallDate());
+       values.put(KEY_REC_H, task.getRecallHour());
+       values.put(KEY_PRIO, task.getPriority());
+       values.put(KEY_CAT, task.getCategory());
+       values.put(KEY_TITLE, task.getTitle());
+       values.put(KEY_CONTENT, task.getContent());
+       
+       Log.d("VALUES_LOG", values+"");
+
+       db.update(TABLE_TASK, values, KEY_TITLE + " = ?", new String[] { String.valueOf(title) });
+       db.close();
+   }
 
    // Getting single task
 	public Task getTask(long id) {
@@ -52,11 +74,10 @@ public class TaskDAO extends DAOBase {
 
 		String selectQuery = "SELECT * FROM " + TABLE_TASK + " WHERE _id = " + id;
 		Cursor cursor = db.rawQuery(selectQuery, null);
-		
-//		Cursor cursor = db.query(TABLE_TASK,
-//				new String[] { KEY_ID, KEY_INI_D, KEY_TITLE }, KEY_ID + "=?",
-//				new String[] { String.valueOf(id) }, null, null, null, null);
-		if (cursor != null)
+
+	    Log.d("Count",cursor.getCount()+""); 
+	    if(cursor.getCount() > 0){
+
 			cursor.moveToFirst();
 		
 		Task task = new Task(cursor.getString(cursor
@@ -69,11 +90,35 @@ public class TaskDAO extends DAOBase {
 				.getColumnIndex("title")), cursor.getString(cursor
 				.getColumnIndex("content")));
 
-//		Log.d("CURSORTEST", cursor.toString());
-//
-//		Task task = new Task(cursor.getLong(0),
-//				cursor.getString(1), cursor.getString(2));
-		return task;
+			return task;
+	    }
+	    return null;
+		
+	}
+	
+	// Getting single task by title
+	public Task getTaskByTitle(String title) {
+		SQLiteDatabase db = this.open();
+	
+		String selectQuery = "SELECT * FROM " + TABLE_TASK + " WHERE title = '" + title + "'";
+		Cursor cursor = db.rawQuery(selectQuery, null);
+	
+	    if(cursor.getCount() > 0) {
+			cursor.moveToFirst();
+		
+			Task task = new Task(cursor.getString(cursor
+					.getColumnIndex("initial_date")), cursor.getString(cursor
+					.getColumnIndex("initial_hour")), cursor.getString(cursor
+					.getColumnIndex("recall_date")), cursor.getString(cursor
+					.getColumnIndex("recall_hour")), cursor.getString(cursor
+					.getColumnIndex("priority")), cursor.getString(cursor
+					.getColumnIndex("category")), cursor.getString(cursor
+					.getColumnIndex("title")), cursor.getString(cursor
+					.getColumnIndex("content")));
+	
+			return task;
+	    }
+	    return null;
 	}
    
    // Getting All Task
@@ -85,28 +130,36 @@ public class TaskDAO extends DAOBase {
        SQLiteDatabase db = this.open();
        Cursor cursor = db.rawQuery(selectQuery, null);
 
-       // looping through all rows and adding to list
-       if (cursor.moveToFirst()) {
-           do {
-               Task task = new Task();
-               task.setId(cursor.getLong(0));
-               task.setInitialDate(cursor.getString(1));
-               task.setInitialHour(cursor.getString(2));
-               task.setRecallDate(cursor.getString(3));
-               task.setRecallHour(cursor.getString(4));
-               task.setPriority(cursor.getString(5));
-               task.setCategory(cursor.getString(6));
-               task.setTitle(cursor.getString(7));
-               task.setContent(cursor.getString(8));
-
-               // Adding task to list
-               TaskList.add(task);
-           } while (cursor.moveToNext());
+       Log.d("Count",cursor.getCount()+""); 
+       if(cursor.getCount() > 0){
+	       // looping through all rows and adding to list
+	       if (cursor.moveToFirst()) {
+	           do {
+	               Task task = new Task();
+	               task.setId(cursor.getLong(0));
+	               task.setInitialDate(cursor.getString(1));
+	               task.setInitialHour(cursor.getString(2));
+	               task.setRecallDate(cursor.getString(3));
+	               task.setRecallHour(cursor.getString(4));
+	               task.setPriority(cursor.getString(5));
+	               task.setCategory(cursor.getString(6));
+	               task.setTitle(cursor.getString(7));
+	               task.setContent(cursor.getString(8));
+	
+	               // Adding task to list
+	               TaskList.add(task);
+	           } while (cursor.moveToNext());
+	       }
        }
        
        cursor.close();
 
        // return task list
        return TaskList;
+   }
+   
+   void deleteTask(String title) {
+	   SQLiteDatabase db = this.open();
+	   db.delete(TABLE_TASK, KEY_TITLE + " = ?", new String[] { String.valueOf(title) });
    }
 }

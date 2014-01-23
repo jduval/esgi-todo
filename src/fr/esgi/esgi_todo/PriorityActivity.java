@@ -16,11 +16,21 @@ import android.widget.AdapterView.OnItemClickListener;
 public class PriorityActivity extends Activity {
 	
 	static String[] PriorityOfTask = {"High", "Medium", "Low"};
+	private String isUpdate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_priority);
+		
+		if (savedInstanceState == null) {
+			Bundle extras = getIntent().getExtras();
+			if (extras != null) {
+				if (extras.get("UPDATE_TASK_PRIO") != null) {
+					isUpdate = "yes";
+				}
+			}
+		}
 		
 		final ListView listview = (ListView) findViewById(R.id.listView1);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, PriorityOfTask);
@@ -39,9 +49,15 @@ public class PriorityActivity extends Activity {
 					
 					editor.commit();
 					
-					Intent intent = new Intent(PriorityActivity.this, NewTaskActivity.class);
-					intent.putExtra("EXTRA_PRIO", "set!");
-					startActivity(intent);
+					if (isUpdate == "yes") {
+						Intent intent = new Intent(PriorityActivity.this, CurrentTaskActivity.class);
+						startActivity(intent);
+					} else {
+						Intent intent = new Intent(PriorityActivity.this, NewTaskActivity.class);
+						intent.putExtra("EXTRA_PRIO", "set!");
+						startActivity(intent);
+					}
+
 			  }
 		});
 	}

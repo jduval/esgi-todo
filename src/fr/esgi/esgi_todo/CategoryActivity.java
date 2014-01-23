@@ -19,12 +19,28 @@ public class CategoryActivity extends Activity {
 	
 	protected static final String TAG = "test";
 	static String[] CategoryOfTask = {"Work", "School", "Shopping"};
+	private String isUpdate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_category);
-		
+
+		if (savedInstanceState == null) {
+			Bundle extras = getIntent().getExtras();
+			if (extras != null) {
+				if (extras.get("UPDATE_TASK_CAT") != null) {
+					isUpdate = "yes";
+				}
+			}
+		}
+
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+
 		final ListView listview = (ListView) findViewById(R.id.listView1);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, CategoryOfTask);
 		listview.setAdapter(adapter);
@@ -33,10 +49,6 @@ public class CategoryActivity extends Activity {
 			  @Override
 			  public void onItemClick(AdapterView<?> parent, View view,
 			    int position, long id) {
-//			    Toast.makeText(getApplicationContext(),
-//			      "Click ListItem Number " + position, Toast.LENGTH_LONG)
-//			      .show();
-				  //Log.d(TAG, CategoryOfTask[position]);
 					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(CategoryActivity.this);
 					Editor editor = prefs.edit();
 
@@ -46,11 +58,17 @@ public class CategoryActivity extends Activity {
 					
 					editor.commit();
 					
-					Intent intent = new Intent(CategoryActivity.this, NewTaskActivity.class);
-					intent.putExtra("EXTRA_CAT", "set!");
-					startActivity(intent);
+					if (isUpdate == "yes") {
+						Intent intent = new Intent(CategoryActivity.this, CurrentTaskActivity.class);
+						startActivity(intent);
+					} else {
+						Intent intent = new Intent(CategoryActivity.this, NewTaskActivity.class);
+						intent.putExtra("EXTRA_CAT", "set!");
+						startActivity(intent);
+					}
 			  }
 		});
+		
 	}
 
 	@Override

@@ -16,11 +16,14 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
 public class DateActivity extends Activity {
+	
+	private String isUpdate;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,19 @@ public class DateActivity extends Activity {
 		EditText editTextHour = (EditText) findViewById( R.id.editTextInitialHour );
 		SimpleDateFormat sdfhour = new SimpleDateFormat( "kk:mm" );
 		editTextHour.setText(sdfhour.format(new Date()));
+		
+		if (savedInstanceState == null) {
+			Bundle extras = getIntent().getExtras();
+			if (extras != null) {
+				if (extras.get("UPDATE_TASK_DATE") != null) {
+					isUpdate = "yes";
+					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+					
+					EditText ini_d_button = (EditText)findViewById(R.id.editTextInitialDate);
+					ini_d_button.setText(prefs.getString("initial_date", null));
+				}
+			}
+		}
 	}
 
 	@Override
@@ -195,9 +211,16 @@ public class DateActivity extends Activity {
 
 		editor.commit();
 
-		Intent intent = new Intent(this, NewTaskActivity.class);
-		intent.putExtra("EXTRA_DATE", "set!");
-		startActivity(intent);
+		if (isUpdate == "yes") {
+			Intent intent = new Intent(this, CurrentTaskActivity.class);
+			//intent.putExtra("TITLE_TASK", "");
+			startActivity(intent);
+		} else {
+			Intent intent = new Intent(this, NewTaskActivity.class);
+			intent.putExtra("EXTRA_DATE", "set!");
+			startActivity(intent);
+		}
+
 	}
 	
 }

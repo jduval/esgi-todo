@@ -24,13 +24,18 @@
     <string name="title_activity_initial_date_picker">InitialDatePickerActivity</string>
     <string name="validate_date">Validate</string>
 
-
     <!-- activity_category.xml -->
     <string name="title_activity_category">Category</string>
-    <string name="title_category">What category?</string>    
+    <string name="title_category">What category?</string>
 
     <!-- activity_priority.xml -->
     <string name="title_activity_priority">Priority</string>
     <string name="title_priority">Which priority?</string>
+    
+    <!-- activity_current_task -->
+    <string name="title_activity_current_task">CurrentTaskActivity</string>
+    <string name="back_to_main">Back to Home</string>
+    <string name="update_current_task">Update</string>
+    <string name="delete_current_task">Delete</string>
 
 </resources>
