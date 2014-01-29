@@ -70,10 +70,9 @@ public class TaskDAO extends DAOBase {
 		String selectQuery = "SELECT * FROM " + TABLE_TASK + " WHERE _id = " + id;
 		Cursor cursor = db.rawQuery(selectQuery, null);
 
-	    Log.d("Count",cursor.getCount()+""); 
 	    if(cursor.getCount() > 0){
 
-			cursor.moveToFirst();
+		cursor.moveToFirst();
 		
 		Task task = new Task(cursor.getString(cursor
 				.getColumnIndex("initial_date")), cursor.getString(cursor
@@ -88,9 +87,9 @@ public class TaskDAO extends DAOBase {
 			return task;
 	    }
 	    return null;
-		
+
 	}
-	
+
 	// Getting single task by title
 	public Task getTaskByTitle(String title) {
 		SQLiteDatabase db = this.open();
@@ -145,7 +144,7 @@ public class TaskDAO extends DAOBase {
 	           } while (cursor.moveToNext());
 	       }
        }
-       
+
        cursor.close();
 
        // return task list

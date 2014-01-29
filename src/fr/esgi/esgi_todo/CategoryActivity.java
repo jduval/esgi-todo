@@ -34,7 +34,7 @@ public class CategoryActivity extends Activity {
 		}
 
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -42,7 +42,7 @@ public class CategoryActivity extends Activity {
 		final ListView listview = (ListView) findViewById(R.id.listView1);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, CategoryOfTask);
 		listview.setAdapter(adapter);
-		
+
 		listview.setOnItemClickListener(new OnItemClickListener() {
 			  @Override
 			  public void onItemClick(AdapterView<?> parent, View view,
@@ -53,9 +53,9 @@ public class CategoryActivity extends Activity {
 					String categoryKey = "category";
 
 					editor.putString(categoryKey, CategoryOfTask[position]);
-					
+
 					editor.commit();
-					
+
 					if (isUpdate == "yes") {
 						Intent intent2 = new Intent(CategoryActivity.this, CurrentTaskActivity.class);
 						intent2.putExtra("updated_category", CategoryOfTask[position]);
@@ -68,7 +68,7 @@ public class CategoryActivity extends Activity {
 					}
 			  }
 		});
-		
+
 	}
 
 	@Override
