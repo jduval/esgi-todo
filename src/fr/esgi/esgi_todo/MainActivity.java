@@ -50,20 +50,12 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	public void newTask(View v) {
 		Intent intent = new Intent(this, NewTaskActivity.class);
 		startActivity(intent);
 	}
-	
-	@Override
-	protected void onStop() {
-		super.onStop();
-		
-//		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//		prefs.edit().clear().commit();
-	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();

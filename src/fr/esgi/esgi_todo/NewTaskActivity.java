@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 public class NewTaskActivity extends Activity {
 
-	private static final String TAG = "shared";
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,7 +30,6 @@ public class NewTaskActivity extends Activity {
 					Map<String,?> keys = prefs.getAll();
 
 					for(Map.Entry<String, ?> entry : keys.entrySet()) {
-						//Log.d(TAG, entry.getKey() + " : " +  entry.getValue().toString());
 						if (entry.getKey().equals("initial_date")) {
 							Button ini_d_button = (Button)findViewById(R.id.button2);
 							ini_d_button.setText(entry.getValue().toString());
@@ -142,6 +139,12 @@ public class NewTaskActivity extends Activity {
 		if (sTitleTask.matches("")) {
 		    Toast.makeText(this, "You didn't set any title.", Toast.LENGTH_SHORT).show();
 		    return;
+		} else {
+			Task checkIfUnique = db.getTaskByTitle(sTitleTask);
+			if (checkIfUnique != null) {
+				Toast.makeText(this, "You must have an unique title.", Toast.LENGTH_SHORT).show();
+			    return;
+			}
 		}
 
 		db.addTask(new Task(

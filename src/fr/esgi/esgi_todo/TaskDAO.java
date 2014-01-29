@@ -12,7 +12,6 @@ public class TaskDAO extends DAOBase {
 
 	public TaskDAO(Context pContext) {
 		super(pContext);
-		// TODO Auto-generated constructor stub
 	}
 
 	// Columns names
@@ -48,8 +47,6 @@ public class TaskDAO extends DAOBase {
    
    // Adding new task
    void updateTask(Task task, String title) {
-	   Log.d("DAFUQ_DAO", task.getPriority());
-	 //  Log.d("DAFUQ_DAO", title.toString());
        SQLiteDatabase db = this.open();
 
        ContentValues values = new ContentValues();
@@ -62,8 +59,6 @@ public class TaskDAO extends DAOBase {
        values.put(KEY_TITLE, task.getTitle());
        values.put(KEY_CONTENT, task.getContent());
        
-       Log.d("VALUES_LOG", values+"");
-
        db.update(TABLE_TASK, values, KEY_TITLE + " = ?", new String[] { String.valueOf(title) });
        db.close();
    }
@@ -130,7 +125,6 @@ public class TaskDAO extends DAOBase {
        SQLiteDatabase db = this.open();
        Cursor cursor = db.rawQuery(selectQuery, null);
 
-       Log.d("Count",cursor.getCount()+""); 
        if(cursor.getCount() > 0){
 	       // looping through all rows and adding to list
 	       if (cursor.moveToFirst()) {

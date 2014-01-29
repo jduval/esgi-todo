@@ -14,20 +14,6 @@ public class Task {
 	String contentTask;
 
 	public Task() {}
-	public Task(long id, String initial_date, String initial_hour) {
-		this._id = id;
-		this.initial_date = initial_date;
-	}
-
-	public Task(long id, String initial_date, String initial_hour, String recall_date, String recall_hour) {
-		this._id = id;
-		this.initial_date = initial_date;
-	}
-
-	public Task(String initial_date, String initial_hour, String recall_date, String recall_hour) {
-		this.initial_date = initial_date;
-	}
-
 	public Task(String initial_date, String initial_hour, String recall_date, String recall_hour, String priority, String category, String titleTask, String contentTask) {
 		this.initial_date = initial_date;
 		this.initial_hour = initial_hour;
