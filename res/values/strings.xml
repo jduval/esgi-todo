@@ -13,15 +13,14 @@
     <string name="new_task_title">Title / Resume</string>
     <string name="new_task_content">Content</string>
     <string name="new_task_validate">Validate</string>
-    <string name="title_activity_date">DateActivity</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_date">When is the due date?</string>
 
     <!-- activity_date.xml -->
     <string name="set_date">Date</string>
     <string name="set_hour">Hour</string>
     <string name="set_recall_date">Recall Date</string>
     <string name="set_recall_hour">Recall Hour</string>
-    <string name="title_activity_initial_date_picker">InitialDatePickerActivity</string>
+    <string name="title_activity_initial_date_picker"></string>
     <string name="validate_date">Validate</string>
 
     <!-- activity_category.xml -->
@@ -33,7 +32,7 @@
     <string name="title_priority">Which priority?</string>
     
     <!-- activity_current_task -->
-    <string name="title_activity_current_task">CurrentTaskActivity</string>
+    <string name="title_activity_current_task"></string>
     <string name="back_to_main">Back to Home</string>
     <string name="update_current_task">Update</string>
     <string name="delete_current_task">Delete</string>

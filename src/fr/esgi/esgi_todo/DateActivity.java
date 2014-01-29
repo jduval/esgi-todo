@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -154,13 +153,13 @@ public class DateActivity extends Activity {
 	            mYear, mMonth, mDay);
 	    dp.show();
 	}
-	
+
 	public void openDatePickerDialogRecallHour(View v)
 	{ 
 	    Calendar c = Calendar.getInstance();
 	    int mHour = c.get(Calendar.HOUR);
 	    int mMinute = c.get(Calendar.MINUTE);
-	    
+
 	    //timepicker callback
 	    OnTimeSetListener timeListener = new TimePickerDialog.OnTimeSetListener() {
 
@@ -171,25 +170,20 @@ public class DateActivity extends Activity {
 			}
         
 		};
-		
+
 		//display timepicker
 	    TimePickerDialog tp = new TimePickerDialog(this,
 	            timeListener,
 	            mHour, mMinute, true);
 	    tp.show();
 	}
-	
+
 	public void validateDate(View v) {
 		EditText initialDate = (EditText) findViewById( R.id.editTextInitialDate );
 		EditText initialHour = (EditText) findViewById( R.id.editTextInitialHour );
 		EditText recallDate = (EditText) findViewById( R.id.editTextRecallDate );
 		EditText recallHour = (EditText) findViewById( R.id.editTextRecallHour );
 
-//		if (initialDate.getText() != null) {
-//
-//		}
-
-		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		Editor editor = prefs.edit();
 
@@ -212,9 +206,17 @@ public class DateActivity extends Activity {
 		editor.commit();
 
 		if (isUpdate == "yes") {
-			Intent intent = new Intent(this, CurrentTaskActivity.class);
-			//intent.putExtra("TITLE_TASK", "");
-			startActivity(intent);
+			Intent intent3 = new Intent(this, CurrentTaskActivity.class);
+			intent3.putExtra("updated_initial_date", initialDate.getText().toString());
+			intent3.putExtra("updated_initial_hour", initialHour.getText().toString());
+			if (recallDate.getText().toString() != "") {
+				intent3.putExtra("updated_recall_date", recallDate.getText().toString());
+				if (recallHour.getText().toString() != "") {
+					intent3.putExtra("updated_recall_hour", recallHour.getText().toString());
+				}
+			}
+			setResult(RESULT_OK, intent3);
+			finish();
 		} else {
 			Intent intent = new Intent(this, NewTaskActivity.class);
 			intent.putExtra("EXTRA_DATE", "set!");

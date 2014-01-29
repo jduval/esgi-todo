@@ -1,6 +1,5 @@
 package fr.esgi.esgi_todo;
 
-
 public class Task {
 
 	long _id;

@@ -19,6 +19,10 @@ public class CurrentTaskActivity extends Activity {
 
 	private String updated_priority;
 	private String updated_category;
+	private String updated_initial_date;
+	private String updated_initial_hour;
+	private String updated_recall_date;
+	private String updated_recall_hour;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -109,9 +113,9 @@ public class CurrentTaskActivity extends Activity {
 	}
 	
 	public void updateDate(View v) {
-		Intent intent = new Intent(this, DateActivity.class);
-		intent.putExtra("UPDATE_TASK_DATE", "true");
-		startActivity(intent);
+		Intent intent3 = new Intent(this, DateActivity.class);
+		intent3.putExtra("UPDATE_TASK_DATE", "true");
+		startActivityForResult(intent3, 3);
 	}
 	
 	public void updatePriority(View v) {
@@ -139,6 +143,14 @@ public class CurrentTaskActivity extends Activity {
 		case 2:
 			if (resultCode == RESULT_OK) {
 				updated_category = data.getStringExtra("updated_category");
+			}
+			break;
+		case 3:
+			if (resultCode == RESULT_OK) {
+				updated_initial_date = data.getStringExtra("updated_initial_date");
+				updated_initial_hour = data.getStringExtra("updated_initial_hour");
+				updated_recall_date = data.getStringExtra("updated_recall_date");
+				updated_recall_hour = data.getStringExtra("updated_recall_hour");
 			}
 			break;
 		}
@@ -182,17 +194,31 @@ public class CurrentTaskActivity extends Activity {
    	 	if (updated_category == null) {
    	 		updated_category = prefs.getString("category", null);
    	 	}
+   	 	if (updated_initial_date == null) {
+   	 		updated_initial_date = prefs.getString("initial_date", null);
+   	 	}
+   	 	if (updated_initial_hour == null) {
+   	 		updated_initial_hour = prefs.getString("initial_hour", null);
+   	 	}
+		if (updated_recall_date == null) {
+			updated_recall_date = prefs.getString("recall_date", null);
+		}
+		if (updated_recall_hour == null) {
+			updated_recall_hour = prefs.getString("recall_hour", null);
+		}
 
 		db.updateTask(new Task(
-					initial_date,
-					initial_hour,
-					prefs.getString("recall_date", null),
-					prefs.getString("recall_hour", null),
+					updated_initial_date,
+					updated_initial_hour,
+					updated_recall_date,
+					updated_recall_hour,
 					updated_priority,
 					updated_category,
 					titleTask.getText().toString(),
 					contentTask.getText().toString()
 				), title_task);
+		
+		db.close();
 
 		prefs.edit().clear().commit();
 

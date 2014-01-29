@@ -158,6 +158,8 @@ public class NewTaskActivity extends Activity {
 					contentTask.getText().toString()
 				));
 		
+		db.close();
+		
 		//delete sharedpreferences
 		prefs.edit().clear().commit();
 

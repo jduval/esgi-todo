@@ -6,7 +6,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class TaskDAO extends DAOBase {
 
@@ -128,17 +127,17 @@ public class TaskDAO extends DAOBase {
 	       // looping through all rows and adding to list
 	       if (cursor.moveToFirst()) {
 	           do {
-	               Task task = new Task();
-	               task.setId(cursor.getLong(0));
-	               task.setInitialDate(cursor.getString(1));
-	               task.setInitialHour(cursor.getString(2));
-	               task.setRecallDate(cursor.getString(3));
-	               task.setRecallHour(cursor.getString(4));
-	               task.setPriority(cursor.getString(5));
-	               task.setCategory(cursor.getString(6));
-	               task.setTitle(cursor.getString(7));
-	               task.setContent(cursor.getString(8));
-	
+	               Task task = new Task(cursor.getString(cursor
+	   					.getColumnIndex("initial_date")), cursor.getString(cursor
+	   					.getColumnIndex("initial_hour")), cursor.getString(cursor
+	   					.getColumnIndex("recall_date")), cursor.getString(cursor
+	   					.getColumnIndex("recall_hour")), cursor.getString(cursor
+	   					.getColumnIndex("priority")), cursor.getString(cursor
+	   					.getColumnIndex("category")), cursor.getString(cursor
+	   					.getColumnIndex("title")), cursor.getString(cursor
+	   					.getColumnIndex("content"))
+	   				);
+	               
 	               // Adding task to list
 	               TaskList.add(task);
 	           } while (cursor.moveToNext());
