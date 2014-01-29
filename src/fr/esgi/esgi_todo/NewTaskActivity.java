@@ -1,7 +1,6 @@
 package fr.esgi.esgi_todo;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
@@ -9,11 +8,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class NewTaskActivity extends Activity {
 
@@ -117,32 +116,52 @@ public class NewTaskActivity extends Activity {
 			map.put(entry.getKey(), entry.getValue().toString());
 		}
 
-		// no recall date/hour set
+		//check if empty mandatory values
+		String initial_date = map.get("initial_date");
+		String initial_hour = map.get("initial_hour");
+		String priority = map.get("priority");
+		String category = map.get("category");
+		String sTitleTask = titleTask.getText().toString();
+
+		if (initial_date == null) {
+		    Toast.makeText(this, "You didn't set any due date.", Toast.LENGTH_SHORT).show();
+		    return;
+		}
+		if (initial_hour == null) {
+		    Toast.makeText(this, "You didn't set any due hour.", Toast.LENGTH_SHORT).show();
+		    return;
+		}
+		if (priority == null) {
+		    Toast.makeText(this, "You didn't set any priority.", Toast.LENGTH_SHORT).show();
+		    return;
+		}
+		if (category == null) {
+		    Toast.makeText(this, "You didn't set any category.", Toast.LENGTH_SHORT).show();
+		    return;
+		}
+		if (sTitleTask.matches("")) {
+		    Toast.makeText(this, "You didn't set any title.", Toast.LENGTH_SHORT).show();
+		    return;
+		}
+
 		db.addTask(new Task(
-					map.get("initial_date"),
-					map.get("initial_hour"),
+					initial_date,
+					initial_hour,
 					map.get("recall_date"),
 					map.get("recall_hour"),
-					map.get("priority").toString(),
-					map.get("category").toString(),
-					titleTask.getText().toString(),
+					priority,
+					category,
+					sTitleTask,
 					contentTask.getText().toString()
 				));
-
-//		List<Task> tasks = db.getAllTasks();
-//		for (Task tsk : tasks) {
-//			String log = "Id: " + tsk.getId() + ", initial date: " + tsk.getInitialDate() + ", initial hour: " + tsk.getInitialHour() 
-//					+ ", recall_date: " + tsk.getRecallDate() + ", recall_hour: " + tsk.getRecallHour() + ", priority: " + tsk.getPriority() 
-//					+ ", category: " + tsk.getCategory() + ", title: " + tsk.getTitle() + ", content: " + tsk.getContent();
-//			Log.d(TAG, log);
-//		}
 		
 		//delete sharedpreferences
 		prefs.edit().clear().commit();
+
 		//back to main activity
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
-		
+
 	}
 
 }

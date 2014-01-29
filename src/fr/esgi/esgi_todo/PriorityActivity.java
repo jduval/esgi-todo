@@ -50,8 +50,10 @@ public class PriorityActivity extends Activity {
 					editor.commit();
 					
 					if (isUpdate == "yes") {
-						Intent intent = new Intent(PriorityActivity.this, CurrentTaskActivity.class);
-						startActivity(intent);
+						Intent intent1 = new Intent(PriorityActivity.this, CurrentTaskActivity.class);
+						intent1.putExtra("updated_priority", PriorityOfTask[position]);
+						setResult(RESULT_OK, intent1);
+						finish();
 					} else {
 						Intent intent = new Intent(PriorityActivity.this, NewTaskActivity.class);
 						intent.putExtra("EXTRA_PRIO", "set!");

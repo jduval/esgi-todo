@@ -7,13 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -30,10 +28,6 @@ public class MainActivity extends Activity {
 		ArrayList<Task> tasks = db.getAllTasks();
 		
 		lv.setAdapter(new TaskCustomAdapter(this, tasks));
-		
-//		for(Task tasks1: tasks) {
-//			Log.d("test", tasks1.getId()+"");
-//		}
 		
 		lv.setOnItemClickListener(new OnItemClickListener()
 		{

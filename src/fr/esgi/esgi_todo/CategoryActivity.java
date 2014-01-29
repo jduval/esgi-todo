@@ -6,13 +6,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.view.View;
 
 public class CategoryActivity extends Activity {
@@ -59,8 +57,10 @@ public class CategoryActivity extends Activity {
 					editor.commit();
 					
 					if (isUpdate == "yes") {
-						Intent intent = new Intent(CategoryActivity.this, CurrentTaskActivity.class);
-						startActivity(intent);
+						Intent intent2 = new Intent(CategoryActivity.this, CurrentTaskActivity.class);
+						intent2.putExtra("updated_category", CategoryOfTask[position]);
+						setResult(RESULT_OK, intent2);
+						finish();
 					} else {
 						Intent intent = new Intent(CategoryActivity.this, NewTaskActivity.class);
 						intent.putExtra("EXTRA_CAT", "set!");
